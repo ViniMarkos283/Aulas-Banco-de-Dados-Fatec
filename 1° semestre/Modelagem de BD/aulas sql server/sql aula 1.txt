@@ -1,0 +1,87 @@
+-- DDL (data definition language) > create, drop, alter
+-- não é key sensitive
+-- o dbo é o sa (super adm)
+-- usar o not null impede do valor ser nulo
+-- o contraist faz a pk e o fk
+
+-- CRUD - DML (data manipulation language)
+--create - insert
+--read - select
+--update - update
+--delete - delete
+
+/*
+ CREATE DATABASE Aula01 -- criar um bd, para aparecer, dá F5 focando na pasta bd
+
+ DROP DATABASE Aula01 -- apaga o bd
+ */
+
+ USE Aula01
+ CREATE TABLE UF (
+ cd_UF INT NOT NULL,
+ nm_UF VARCHAR (35) NOT NULL,
+ abr_UF CHAR(2) NOT NULL,
+ CONSTRAINT pk_UF PRIMARY KEY (cd_UF),
+ )
+
+ -- inserindo dados na tabela --
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (10,'Acre','AC')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (11,'Alagoas','AL')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (13,'Amazonas','AM')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (12,'Amapá','AP')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (14,'Bahia','BA')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (15,'Ceará','CE')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (16,'Distrito Federal','DF')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (17,'Espirito Santo','ES')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (18,'Goiás','GO')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (19,'Maranhão','MA')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (20,'Mato Grosso','MT')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (21,'Mato Grosso do Sul','MS')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (22,'Minas Gerais','MG')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (23,'Pará','PA')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (24,'Paraíba','PB')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (25,'Paraná','PR')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (26,'Pernanbuco','PE')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (27,'Piauí','PI')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (28,'Rio de Janeiro','RJ')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (29,'Rio Grando do Norte','RN')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (30,'Rio Grando do Sul','RS')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (31,'Rondonia','RO')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (32,'Roraima','RR')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (33,'Santa Catarina','SC')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (34,'São Paulo','SP')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (35,'Sergipe','SE')
+INSERT INTO UF (cd_UF, nm_UF, abr_UF) VALUES (36,'Tocantins','TO')
+
+ USE Aula01
+ CREATE TABLE Municipio (
+ cd_Municipio INT NOT NULL,
+ nm_Municipio VARCHAR (40) NOT NULL,
+ vlr_AreaM2 DECIMAL (10,2), -- EXEMPLO: 99999999,99 (10 VALORES, 2 DECIMAIS)
+ cd_UFMunicipio INT NOT NULL,
+ CONSTRAINT pk_Municipio PRIMARY KEY (cd_Municipio),
+ CONSTRAINT fk_Municipio_UF FOREIGN KEY (cd_UFMunicipio) REFERENCES UF (cd_UF),
+)
+
+/*
+ALTER TABLE Municipio add qtde_habitantes bigint
+ALTER TABLE Municipio alter column nm_municipio varchar (45)
+ALTER TABLE Municipio DROP COLUMN qtde_habitantes
+*/
+
+-- DELETE FROM Municipio // remove tudo do municipio
+
+INSERT INTO Municipio VALUES ('nome do municipio')
+
+CREATE TABLE Bairro (
+cd_bairro INT NOT NULL IDENTITY(340010,1),
+nm_bairro VARCHAR (30) NOT NULL,
+cd_MunicipioBairro INT NOT NULL,
+CONSTRAINT pk_Bairro PRIMARY KEY (cd_bairro),
+CONSTRAINT fk_BairroMunicipio FOREIGN KEY (cd_MunicipioBairro) REFERENCES Municipio (cd_Municipio)
+
+)
+
+INSERT INTO BAIRRO VALUES ('centro', 34001)
+
+-- avaliação, pegar um estado, colocar 5 municipios e 10 bairros, pode usar  IBGE para consultar
